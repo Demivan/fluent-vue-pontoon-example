@@ -1,0 +1,61 @@
+{
+  "name": "fluent-vue-cli",
+  "description": "fluent-vue CLI tool for exporting and importing translations from Vue files",
+  "version": "0.0.0",
+  "author": "Ivan Demchuk @Demivan",
+  "bin": {
+    "fluent-vue": "./bin/run"
+  },
+  "bugs": "https://github.com/Demivan/fluent-vue-cli/issues",
+  "dependencies": {
+    "@oclif/command": "^1",
+    "@oclif/config": "^1",
+    "@oclif/plugin-help": "^3",
+    "@vue/compiler-sfc": "^3.1.5",
+    "fs-extra": "^10.0.0",
+    "tiny-glob": "^0.2.9",
+    "tslib": "^1"
+  },
+  "devDependencies": {
+    "@oclif/dev-cli": "^1",
+    "@types/fs-extra": "^9.0.12",
+    "@types/node": "^16.4.8",
+    "eslint": "^5.13",
+    "eslint-config-oclif": "^3.1",
+    "eslint-config-oclif-typescript": "^0.1",
+    "globby": "^10",
+    "ts-node": "^8",
+    "typescript": "^3.3"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "files": [
+    "/bin",
+    "/lib",
+    "/npm-shrinkwrap.json",
+    "/oclif.manifest.json"
+  ],
+  "homepage": "https://github.com/Demivan/fluent-vue-cli",
+  "keywords": [
+    "oclif"
+  ],
+  "license": "MIT",
+  "main": "lib/index.js",
+  "oclif": {
+    "commands": "./lib/commands",
+    "bin": "fluent-vue",
+    "plugins": [
+      "@oclif/plugin-help"
+    ]
+  },
+  "repository": "Demivan/fluent-vue-cli",
+  "scripts": {
+    "postpack": "rm -f oclif.manifest.json",
+    "posttest": "eslint . --ext .ts --config .eslintrc",
+    "prepack": "rm -rf lib && tsc -b && oclif-dev manifest && oclif-dev readme",
+    "test": "echo NO TESTS",
+    "version": "oclif-dev readme && git add README.md"
+  },
+  "types": "lib/index.d.ts"
+}
