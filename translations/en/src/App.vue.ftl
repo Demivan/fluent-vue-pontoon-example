@@ -1,4 +1,4 @@
-user-name = World 3
-aria-key = Aria value
+user-name = World
+aria-key = Aria value 2
 greeting = Hello, { $name }
-    .aria-label = Label value 3
+    .aria-label = Label value
