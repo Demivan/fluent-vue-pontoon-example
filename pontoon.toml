@@ -1,6 +1,6 @@
 [[paths]]
-    reference = "*/en/**"
-    l10n = "*/{locale}/**"
+    reference = "public/en/**"
+    l10n = "public/{locale}/**"
     locales = [
         "en",
         "da",
