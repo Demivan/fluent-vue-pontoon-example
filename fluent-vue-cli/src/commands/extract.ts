@@ -1,7 +1,7 @@
 import {Command, flags} from '@oclif/command'
 
 import path from 'path'
-import {readFile, writeFile, ensureDir} from 'fs-extra'
+import {readFile, writeFile, ensureDir, rm} from 'fs-extra'
 import {parse} from '@vue/compiler-sfc'
 import glob from 'tiny-glob'
 
@@ -20,27 +20,29 @@ export default class Extract extends Command {
 
   static flags = {
     help: flags.help({char: 'h'}),
-    outDir: flags.string({required: true}),
   }
 
-  static args = [{
-    name: 'files',
-    description: 'list of files to extact translations from',
-    required: true,
-  }]
-
-  static strict = false
+  static args = [
+    {
+      name: 'srcDir',
+      description: 'base directory of source files',
+      required: true,
+    },
+    {
+      name: 'translationDir',
+      description: 'base translation directory',
+      required: true,
+    },
+  ]
 
   async run() {
-    const {argv: patterns, flags} = this.parse(Extract)
+    const {args} = this.parse(Extract)
 
-    const files = await Promise.all(
-      patterns.map(pattern => glob(pattern, {cwd: process.cwd()}))
-    )
+    const allFiles = await glob(path.join(args.srcDir, '**/*.vue'), {cwd: process.cwd()})
 
-    const allFiles = files.flat()
+    await rm(args.translationDir, {recursive: true})
 
-    for (const file of allFiles.filter(file => file.endsWith('.vue'))) {
+    for (const file of allFiles) {
       // eslint-disable-next-line no-await-in-loop
       const data = await readFile(file)
 
@@ -61,8 +63,10 @@ export default class Extract extends Command {
           continue
         }
 
+        const adjustedContent = block.content.replace(/^\s+|\s+$/g, '') + '\n'
+
         // eslint-disable-next-line no-await-in-loop
-        await writeOutput(flags.outDir, locale, file, block.content)
+        await writeOutput(args.translationDir, locale, path.relative(args.srcDir, file), adjustedContent)
       }
     }
   }

@@ -19,7 +19,7 @@ $ npm install -g fluent-vue-cli
 $ fluent-vue COMMAND
 running command...
 $ fluent-vue (-v|--version|version)
-fluent-vue-cli/0.0.0 linux-x64 node-v14.17.3
+fluent-vue-cli/0.0.0 linux-x64 node-v16.5.0
 $ fluent-vue --help [COMMAND]
 USAGE
   $ fluent-vue COMMAND
@@ -28,26 +28,27 @@ USAGE
 <!-- usagestop -->
 # Commands
 <!-- commands -->
-* [`fluent-vue extract FILES`](#fluent-vue-extract-files)
+* [`fluent-vue extract SRCDIR TRANSLATIONDIR`](#fluent-vue-extract-srcdir-translationdir)
 * [`fluent-vue help [COMMAND]`](#fluent-vue-help-command)
+* [`fluent-vue import TRANSLATIONDIR SRCDIR`](#fluent-vue-import-translationdir-srcdir)
 
-## `fluent-vue extract FILES`
+## `fluent-vue extract SRCDIR TRANSLATIONDIR`
 
-describe the command here
+extracts translations from Vue components
 
 ```
 USAGE
-  $ fluent-vue extract FILES
+  $ fluent-vue extract SRCDIR TRANSLATIONDIR
 
 ARGUMENTS
-  FILES  list of files to extact translations from
+  SRCDIR          base directory of source files
+  TRANSLATIONDIR  base translation directory
 
 OPTIONS
-  -h, --help       show CLI help
-  --outDir=outDir  (required)
+  -h, --help  show CLI help
 
 EXAMPLE
-  $ fluent-vue extract src/**/*.vue src/**/*.{lang}.ftl
+  $ fluent-vue extract src/**/*.vue
 ```
 
 _See code: [src/commands/extract.ts](https://github.com/Demivan/fluent-vue-cli/blob/v0.0.0/src/commands/extract.ts)_
@@ -68,4 +69,25 @@ OPTIONS
 ```
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.2.2/src/commands/help.ts)_
+
+## `fluent-vue import TRANSLATIONDIR SRCDIR`
+
+imports fluent translations into Vue components
+
+```
+USAGE
+  $ fluent-vue import TRANSLATIONDIR SRCDIR
+
+ARGUMENTS
+  TRANSLATIONDIR  base translation directory
+  SRCDIR          base directory of source files
+
+OPTIONS
+  -h, --help  show CLI help
+
+EXAMPLE
+  $ fluent-vue import
+```
+
+_See code: [src/commands/import.ts](https://github.com/Demivan/fluent-vue-cli/blob/v0.0.0/src/commands/import.ts)_
 <!-- commandsstop -->
